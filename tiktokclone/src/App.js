@@ -12,6 +12,7 @@ function App() {
         <Route path="/login" element={"Login Page"}></Route>
         <Route path="/upload" element={"upload video Page"}></Route>
         <Route path="/profile" element={"profile Page"}></Route>
+        <Route path="*" element={"404 Page not found "} />
       </Routes>
     </div>
   );

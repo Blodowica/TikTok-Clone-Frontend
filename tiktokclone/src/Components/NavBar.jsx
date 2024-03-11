@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Image from "react-bootstrap/Image";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const { loginWithRedirect } = useAuth0();
@@ -10,11 +11,11 @@ function NavBar() {
   return (
     <Row xxl={12} xl={12} lg={12} md={12} sm={12} xs={12}>
       <Col xl={3}>
-        <h1>TokTik</h1>
+        <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
+          <h1>TokTik</h1>
+        </Link>
       </Col>
-      <Col xl={6} className="mt-2">
-        <Form.Control size="sm" placeholder="Search" />
-      </Col>
+      <Col xl={6} className="mt-2"></Col>
       <Col xl={3}>
         <Button className="mt-1" size="sm">
           + Upload

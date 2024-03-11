@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import NavBar from "../Models/NavBar";
+import NavBar from "../Components/NavBar";
+import VideoPlayerComponent from "../Components/VideoPlayerComponent";
 
 function HomePage() {
   return (
@@ -19,10 +20,11 @@ function HomePage() {
           <p>lorem ipsum</p>
           <p>lorem ipsum</p>
         </Col>
-        <Col className="text-center mt-4" xl={7}>
-          Video player here
+        <Col xl={2}></Col>
+        <Col className="d-flex justify-content-center mt-4" xl={3} fluid>
+          <VideoPlayerComponent />
         </Col>
-        <Col xl={3}></Col>
+        <Col xl={4}></Col>
       </Row>
     </Container>
   );
