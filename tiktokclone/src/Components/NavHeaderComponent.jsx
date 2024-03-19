@@ -4,23 +4,33 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 
-function NavBar() {
+function NavHeader() {
   const { loginWithRedirect } = useAuth0();
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
 
   return (
-    <Row xxl={12} xl={12} lg={12} md={12} sm={12} xs={12}>
+    <Row
+      xxl={12}
+      xl={12}
+      lg={12}
+      md={12}
+      sm={12}
+      xs={12}
+      style={{ backgroundColor: "#f542c8" }}
+    >
       <Col xl={3}>
         <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
-          <h1>TokTik</h1>
+          <h1>Viral-Loop</h1>
         </Link>
       </Col>
       <Col xl={6} className="mt-2"></Col>
       <Col xl={3}>
-        <Button className="mt-1" size="sm">
-          + Upload
-        </Button>
-        {console.log(user)}
+        <Link to={"/upload"}>
+          <Button className="mt-1" size="sm">
+            + Upload
+          </Button>
+        </Link>
+
         {!isAuthenticated ? (
           <Button
             className=" mt-1 ms-1"
@@ -58,4 +68,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default NavHeader;

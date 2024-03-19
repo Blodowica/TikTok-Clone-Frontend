@@ -2,6 +2,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./Pages/homePage";
+import UploadVideoPage from "./Pages/uploadVideoPage";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/login" element={"Login Page"}></Route>
-        <Route path="/upload" element={"upload video Page"}></Route>
+        <Route path="/upload" element={<UploadVideoPage />}></Route>
         <Route path="/profile" element={"profile Page"}></Route>
         <Route path="*" element={"404 Page not found "} />
       </Routes>

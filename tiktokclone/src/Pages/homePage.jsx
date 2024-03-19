@@ -1,24 +1,17 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import NavBar from "../Components/NavBar";
+import NavHeader from "../Components/NavHeaderComponent";
 import VideoPlayerComponent from "../Components/VideoPlayerComponent";
+import SideNavBarComponent from "../Components/SideNavBarComponent";
 
 function HomePage() {
   return (
     <Container fluid>
-      <NavBar />
-      <hr />
+      <NavHeader />
+
       <Row>
-        <Col xl={2}>
-          <p>for you</p>
-          <p>Following</p>
-          <p>profile</p>
-          <br />
-          <br />
-          <p>Following accounts</p>
-          <hr />
-          <p>lorem ipsum</p>
-          <p>lorem ipsum</p>
+        <Col xl={2} style={{ backgroundColor: "#d4d4d4" }}>
+          <SideNavBarComponent />
         </Col>
         <Col xl={2}></Col>
         <Col className="d-flex justify-content-center mt-4" xl={3} fluid>
