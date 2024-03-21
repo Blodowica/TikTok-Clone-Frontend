@@ -1,8 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./Pages/homePage";
-import UploadVideoPage from "./Pages/uploadVideoPage";
+import HomePage from "./View/homePage";
+import UploadVideoPage from "./View/uploadVideoPage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

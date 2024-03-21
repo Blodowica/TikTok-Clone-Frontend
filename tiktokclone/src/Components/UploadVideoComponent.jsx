@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
-function UploadVideoComponent() {
-  const fileInputRef = useRef(null);
+function UploadVideoComponent(props) {
+  const fileInputRef = props.fileInputRef;
   const [selectedFileName, setSelectedFileName] = useState("");
-
+  const handleNext = props.handleNext;
+ 
   function handleFileSubmit() {
     fileInputRef.current.click();
     console.log("handleFileSubmit test");
@@ -16,6 +17,9 @@ function UploadVideoComponent() {
     setSelectedFileName(file.name);
 
     // Handle the file here
+
+    props.onFileSelected(file);
+
   }
 
   return (
@@ -75,11 +79,12 @@ function UploadVideoComponent() {
           </Col>
           <Col className="d-flex justify-content-end">
             <Button
+            onClick={()=> handleNext(fileInputRef)}
               variant="danger"
               className="d-flex justify-content-end mt-3 "
               size="sm"
             >
-              Upload
+              Next
             </Button>
           </Col>
         </Col>
