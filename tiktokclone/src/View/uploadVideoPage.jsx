@@ -12,18 +12,16 @@ function UploadVideoPage() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleNext = () => {
-    if(selectedFile != null)
-    {
+    if (selectedFile != null) {
       setShowEditVideo(true);
       console.log(selectedFile);
       console.log(URL.createObjectURL(selectedFile));
     }
-    
-    
   };
 
   const handleCancel = () => {
     setShowEditVideo(false);
+    setSelectedFile(null);
   };
 
   const handleFileSelected = (file) => {
@@ -32,38 +30,33 @@ function UploadVideoPage() {
 
   return (
     <>
-      <Container fluid >
-       
-          <NavHeader />
-        
+      <Container fluid>
+        <NavHeader />
 
         <Row xl={12}>
           {/* Side bar here */}
-          <Col  xl={2} lg={2} style={{ backgroundColor: "#d4d4d4" }}>
+          <Col xl={2} lg={2} style={{ backgroundColor: "#d4d4d4" }}>
             <SideNavBarComponent />
           </Col>
 
           {/* upload video funct start here */}
           {showEditVideo ? (
-             <Col xl={10}>
-              <EditVideoComponent fileInputRef={fileInputRef}
-              handleCancel={handleCancel}
-              selectedFile={selectedFile}
-              
+            <Col xl={10}>
+              <EditVideoComponent
+                fileInputRef={fileInputRef}
+                handleCancel={handleCancel}
+                selectedFile={selectedFile}
               />
-              </Col>
-            ) : (
-              <Col xl={10}>
+            </Col>
+          ) : (
+            <Col xl={10}>
               <UploadVideoComponent
                 fileInputRef={fileInputRef}
                 handleNext={handleNext}
                 onFileSelected={handleFileSelected}
-
-                
               />
-               </Col>
-            )}
-            
+            </Col>
+          )}
         </Row>
       </Container>
     </>
