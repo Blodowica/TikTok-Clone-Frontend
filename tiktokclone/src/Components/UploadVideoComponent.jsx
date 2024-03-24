@@ -5,7 +5,7 @@ function UploadVideoComponent(props) {
   const fileInputRef = props.fileInputRef;
   const [selectedFileName, setSelectedFileName] = useState("");
   const handleNext = props.handleNext;
- 
+
   function handleFileSubmit() {
     fileInputRef.current.click();
     console.log("handleFileSubmit test");
@@ -13,18 +13,17 @@ function UploadVideoComponent(props) {
 
   function handleFileChange(event) {
     const file = event.target.files[0];
-    console.log("Selected file:", file);
+
     setSelectedFileName(file.name);
 
     // Handle the file here
 
     props.onFileSelected(file);
-
   }
 
   return (
     <>
-      <Row className="mt-5">
+      <Row className="mt-5 d-flex align-items-center justify-content-center">
         <Col xl={2}></Col>
 
         {/* Upload component starts here  */}
@@ -79,7 +78,7 @@ function UploadVideoComponent(props) {
           </Col>
           <Col className="d-flex justify-content-end">
             <Button
-            onClick={()=> handleNext(fileInputRef)}
+              onClick={() => handleNext(fileInputRef)}
               variant="danger"
               className="d-flex justify-content-end mt-3 "
               size="sm"

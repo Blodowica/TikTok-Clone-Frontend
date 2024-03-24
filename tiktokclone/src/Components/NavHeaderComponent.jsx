@@ -16,15 +16,22 @@ function NavHeader() {
       md={12}
       sm={12}
       xs={12}
-      style={{ backgroundColor: "#f542c8" }}
+      style={{
+        backgroundColor: "#f542c8",
+        position: "fixed",
+        top: 0,
+        right: 0,
+        left: 0,
+        zIndex: 1000,
+      }}
     >
-      <Col xl={3}>
+      <Col xs={3} xl={3}>
         <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
           <h1>Viral-Loop</h1>
         </Link>
       </Col>
-      <Col xl={6} className="mt-2"></Col>
-      <Col xl={3}>
+      <Col xs={1} xl={6} className="mt-2"></Col>
+      <Col xs={7} xl={3}>
         <Link to={"/upload"}>
           <Button className="mt-1" size="sm">
             + Upload
@@ -44,7 +51,7 @@ function NavHeader() {
           <>
             <Button
               className="ms-1 mt-1"
-              style={{ backgroundColor: "red" }}
+              variant="danger"
               size="sm"
               onClick={() =>
                 logout({ logoutParams: { returnTo: window.location.origin } })

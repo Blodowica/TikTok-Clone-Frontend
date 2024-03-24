@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import { handleUploadVideo } from "../API/VideoAPI";
 import { HttpStatusCode } from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function EditVideoComponent(props) {
   const fileInputRef = props.FileInputRef;
@@ -16,11 +17,13 @@ function EditVideoComponent(props) {
   const [audience, setAudience] = useState("1");
   const userId = 4;
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   const redirectToProfilePage = () => {
     navigate("/profile");
   };
 
+  console.log(user);
   const handleCloseModal = () => {
     setCaption("");
     setisCommentDisabled(false);
@@ -46,7 +49,7 @@ function EditVideoComponent(props) {
   };
   return (
     <>
-      <Row className="mt-5">
+      <Row className="mt-5 d-flex align-items-center justify-content-center">
         <Col xl={2}></Col>
 
         {/* Upload component starts here  */}

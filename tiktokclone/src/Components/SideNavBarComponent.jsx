@@ -3,7 +3,13 @@ import { Col } from "react-bootstrap";
 function SideNavBarComponent() {
   return (
     <>
-      <Col style={{ backgroundColor: "#d4d4d4", height: "94vh" }}>
+      <Col
+        style={{
+          position: "fixed",
+          top: "4.8vh",
+          bottom: 0,
+        }}
+      >
         <p>for you</p>
         <p>Following</p>
         <p>profile</p>

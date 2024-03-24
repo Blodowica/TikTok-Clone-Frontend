@@ -14,8 +14,6 @@ function UploadVideoPage() {
   const handleNext = () => {
     if (selectedFile != null) {
       setShowEditVideo(true);
-      console.log(selectedFile);
-      console.log(URL.createObjectURL(selectedFile));
     }
   };
 
@@ -31,11 +29,25 @@ function UploadVideoPage() {
   return (
     <>
       <Container fluid>
-        <NavHeader />
+        <Col>
+          <NavHeader />
+        </Col>
 
         <Row xl={12}>
           {/* Side bar here */}
-          <Col xl={2} lg={2} style={{ backgroundColor: "#d4d4d4" }}>
+          <Col
+            xl={2}
+            lg={2}
+            style={{
+              backgroundColor: "#d4d4d4",
+              position: "fixed",
+              top: "4.8vh",
+              bottom: 0,
+              backgroundColor: "#d4d4d4",
+              outlineStyle: "dotted",
+              outlineColor: "green",
+            }}
+          >
             <SideNavBarComponent />
           </Col>
 

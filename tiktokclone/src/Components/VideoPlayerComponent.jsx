@@ -1,14 +1,15 @@
-import React from "react";
 import ReactPlayer from "react-player";
 
-function VideoPlayerComponent() {
+function VideoPlayerComponent({ video }) {
+  console.log(video);
   return (
     <>
       <ReactPlayer
-        url={"https://www.youtube.com/shorts/c9JN02-A3Es?feature=share"}
+        url={video.videoURL}
         loop
-        height={"80vh"}
-        // width={"25vw"}
+        height={"60vh"}
+        width={"15vw"}
+        controls
       />
     </>
   );
