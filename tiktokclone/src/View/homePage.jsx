@@ -13,9 +13,9 @@ function HomePage() {
     setVideos(fetchedVideos);
   };
 
-  useEffect(() => {
-    handleLoadVideos();
-  }, []);
+  // useEffect(() => {
+  //   handleLoadVideos();
+  // }, []);
 
   return (
     <Container fluid>

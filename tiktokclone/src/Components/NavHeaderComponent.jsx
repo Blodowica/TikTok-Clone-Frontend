@@ -18,10 +18,10 @@ function NavHeader() {
       xs={12}
       style={{
         backgroundColor: "#f542c8",
-        position: "fixed",
-        top: 0,
-        right: 0,
-        left: 0,
+        // position: "fixed",
+        // top: 0,
+        // right: 0,
+        // left: 0,
         zIndex: 1000,
       }}
     >
