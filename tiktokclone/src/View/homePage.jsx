@@ -23,11 +23,12 @@ function HomePage() {
 
       <Row>
         <Col
+          className=""
           xl={2}
           style={{
-            position: "fixed",
-            top: "4.8vh",
+            top: "5.5vh",
             bottom: 0,
+            height: "100%",
             backgroundColor: "#d4d4d4",
             outlineStyle: "dotted",
             outlineColor: "green",

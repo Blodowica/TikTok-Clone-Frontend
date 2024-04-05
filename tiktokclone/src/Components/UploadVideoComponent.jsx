@@ -24,7 +24,7 @@ function UploadVideoComponent(props) {
   return (
     <>
       <Row className="mt-5 d-flex align-items-center justify-content-center">
-        <Col xl={2}></Col>
+        <Col xl={2} xs={12}></Col>
 
         {/* Upload component starts here  */}
         <Col
@@ -32,16 +32,12 @@ function UploadVideoComponent(props) {
           xl={8}
           style={{
             backgroundColor: "#d3d3d3",
-            // outlineStyle: "dotted",
-            // outlineColor: "black",
           }}
         >
           <Col
             className="p-4 mt-4 mb-4 rounded"
             style={{
               backgroundColor: "#d3d3d3",
-              outlineStyle: "dotted",
-              outlineColor: "black",
             }}
           >
             <Col className="p-2 mt-3 mb-5">

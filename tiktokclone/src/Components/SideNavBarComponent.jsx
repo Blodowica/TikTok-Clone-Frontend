@@ -4,11 +4,11 @@ function SideNavBarComponent() {
   return (
     <>
       <Col
-        style={{
-          position: "fixed",
-          top: "4.8vh",
-          bottom: 0,
-        }}
+      // style={{
+      //   position: "fixed",
+      //   top: "4.8vh",
+      //   bottom: 0,
+      // }}
       >
         <p>for you</p>
         <p>Following</p>

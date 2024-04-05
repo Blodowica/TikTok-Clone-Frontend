@@ -40,10 +40,9 @@ function UploadVideoPage() {
             lg={2}
             style={{
               backgroundColor: "#d4d4d4",
-              position: "fixed",
-              top: "4.8vh",
+
               bottom: 0,
-              backgroundColor: "#d4d4d4",
+              //backgroundColor: "#d4d4d4",
               outlineStyle: "dotted",
               outlineColor: "green",
             }}
