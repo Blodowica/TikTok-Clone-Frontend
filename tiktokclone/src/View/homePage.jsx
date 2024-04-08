@@ -19,31 +19,35 @@ function HomePage() {
 
   return (
     <Container fluid>
-      <NavHeader />
+      <Row>
+        <Col xl={12}>
+          <NavHeader />
+        </Col>
+      </Row>
 
       <Row>
+        {/* Side bar here */}
         <Col
-          className=""
           xl={2}
           style={{
-            top: "5.5vh",
-            bottom: 0,
-            height: "100%",
             backgroundColor: "#d4d4d4",
-            outlineStyle: "dotted",
-            outlineColor: "green",
           }}
         >
           <SideNavBarComponent />
         </Col>
         <Col xl={2}></Col>
-        {videos.map((video, index) => (
-          <Row key={index} className="d-flex justify-content-center mt-4">
-            <Col xl={3} style={{ outlineStyle: "dotted", outlineColor: "red" }}>
-              <VideoPlayerComponent video={video} />
-            </Col>
-          </Row>
-        ))}
+        <Col style={{ height: "92vh" }}>
+          {videos.map((video, index) => (
+            <Row key={index} className="d-flex justify-content-center mt-4">
+              <Col
+                xl={3}
+                style={{ outlineStyle: "dotted", outlineColor: "red" }}
+              >
+                <VideoPlayerComponent video={video} />
+              </Col>
+            </Row>
+          ))}
+        </Col>
         <Col xl={4}></Col>
       </Row>
     </Container>
