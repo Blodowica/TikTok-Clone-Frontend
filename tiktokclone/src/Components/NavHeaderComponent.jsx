@@ -3,10 +3,27 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
+import { useAuth0Functions } from "../API/UserAPI";
 
 function NavHeader() {
-  const { loginWithRedirect } = useAuth0();
-  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const { loginWithAuth0, logoutWithAuth0, user, isAuthenticated } =
+    useAuth0Functions();
+
+  const handleLogin = async () => {
+    try {
+      await loginWithAuth0();
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutWithAuth0();
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   return (
     <Row
@@ -43,7 +60,7 @@ function NavHeader() {
             className=" mt-1 ms-1"
             size="sm"
             style={{ backgroundColor: "orange" }}
-            onClick={() => loginWithRedirect()}
+            onClick={handleLogin}
           >
             Login
           </Button>
@@ -53,9 +70,7 @@ function NavHeader() {
               className="ms-1 mt-1"
               variant="danger"
               size="sm"
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
+              onClick={handleLogout}
             >
               Logout
             </Button>

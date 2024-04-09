@@ -36,7 +36,7 @@ function HomePage() {
           <SideNavBarComponent />
         </Col>
         <Col xl={2}></Col>
-        <Col style={{ height: "92vh" }}>
+        <Col style={{ height: "100%", minHeight: "93.9vh" }}>
           {videos.map((video, index) => (
             <Row key={index} className="d-flex justify-content-center mt-4">
               <Col

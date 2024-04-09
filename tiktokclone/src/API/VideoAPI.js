@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //Video CRUD
-const BASE_URL = "https://localhost:32770/api/Video";
+const BASE_URL = "https://localhost:32782/api/Video";
 
 export const handleGetImageById = (publicVideoId, userID) => {
   let formData = new FormData();
@@ -48,9 +48,9 @@ export const handleUploadVideo = async (
 
 export const getAllVideos = async () => {
   try {
-    const response =
-      await axios.get(`https://localhost:32770/api/Video/GetAllVideos
-    `);
+    const response = await axios.get(
+      `https://localhost:32782/api/Video/GetAllVideos`
+    );
     return response.data; // Return the actual data from the response
   } catch (error) {
     console.error("Error fetching videos:", error);
