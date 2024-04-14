@@ -5,23 +5,22 @@ function VideoPlayerComponent({ video }) {
   return (
     <Container fluid className="rounded border mb-3">
       <Row className="mb-2 mt-1">
-        <Col xs={8} md={6}>
+        <Col xs={8} md={3} xl={4}>
           <h5>testingusername</h5>
         </Col>
         <Col
           xs={4}
-          md={6}
+          md={3}
+          xl={4}
           className="d-flex align-items-center justify-content-md-beginning"
         >
-          <p className="m-0">14-11</p>
+          <p className="m-0">{new Date(video.createdAt).toLocaleString()}</p>
         </Col>
       </Row>
 
       <Row className="mb-3">
         <Col>
-          <p className="m-0">
-            very detailed and indepth description of the video below
-          </p>
+          <p className="m-0">{video.caption}</p>
         </Col>
       </Row>
 
@@ -47,7 +46,7 @@ function VideoPlayerComponent({ video }) {
             className="mb-1"
             style={{ width: "5vw", height: "3vh", fontSize: "80%" }}
           >
-            Like
+            Like {video.likes}
           </Button>
           <Button
             className="mb-1"
