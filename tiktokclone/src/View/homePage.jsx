@@ -13,9 +13,9 @@ function HomePage() {
     setVideos(fetchedVideos);
   };
 
-  // useEffect(() => {
-  //   handleLoadVideos();
-  // }, []);
+  useEffect(() => {
+    handleLoadVideos();
+  }, []);
 
   return (
     <Container fluid>
@@ -35,20 +35,16 @@ function HomePage() {
         >
           <SideNavBarComponent />
         </Col>
-        <Col xl={2}></Col>
-        <Col style={{ height: "100%", minHeight: "93.9vh" }}>
+
+        <Col xl={10} style={{ height: "100%", minHeight: "93.9vh" }}>
           {videos.map((video, index) => (
             <Row key={index} className="d-flex justify-content-center mt-4">
-              <Col
-                xl={3}
-                style={{ outlineStyle: "dotted", outlineColor: "red" }}
-              >
+              <Col xl={5} style={{}}>
                 <VideoPlayerComponent video={video} />
               </Col>
             </Row>
           ))}
         </Col>
-        <Col xl={4}></Col>
       </Row>
     </Container>
   );

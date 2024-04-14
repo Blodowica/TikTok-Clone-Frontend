@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //Video CRUD
-const BASE_URL = "https://localhost:32782/api/Video";
+const BASE_URL = "https://localhost:32814/api/Video";
 
 export const handleGetImageById = (publicVideoId, userID) => {
   let formData = new FormData();
@@ -33,11 +33,16 @@ export const handleUploadVideo = async (
     formData.append("audience", audience);
     formData.append("authorId", authorId);
 
-    var response = await axios.post(`${BASE_URL}/upload`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    var response = await axios.post(
+      `https://localhost:32768/api/Video/upload
+    `,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     console.log(response.data);
     return response;
   } catch (error) {
@@ -49,7 +54,8 @@ export const handleUploadVideo = async (
 export const getAllVideos = async () => {
   try {
     const response = await axios.get(
-      `https://localhost:32782/api/Video/GetAllVideos`
+      `https://localhost:32768/api/Video/GetAllVideos
+`
     );
     return response.data; // Return the actual data from the response
   } catch (error) {
