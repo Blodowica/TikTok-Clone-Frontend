@@ -6,6 +6,7 @@ import UploadVideoPage from "./View/uploadVideoPage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProfilePage from "./View/profilePage";
+import FullVideoPage from "./View/fullvideoPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={"Login Page"}></Route>
         <Route path="/upload" element={<UploadVideoPage />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
+        <Route path="/fullvideo" element={<FullVideoPage />}></Route>
         <Route path="*" element={"404 Page not found "} />
       </Routes>
     </div>

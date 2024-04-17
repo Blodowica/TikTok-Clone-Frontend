@@ -34,7 +34,8 @@ export const handleUploadVideo = async (
     formData.append("authorId", authorId);
 
     var response = await axios.post(
-      `https://localhost:32768/api/Video/upload
+      `https://localhost:32770/api/Video/GetAllVideos
+
     `,
       formData,
       {
@@ -54,7 +55,8 @@ export const handleUploadVideo = async (
 export const getAllVideos = async () => {
   try {
     const response = await axios.get(
-      `https://localhost:32768/api/Video/GetAllVideos
+      `https://localhost:32770/api/Video/GetAllVideos
+
 `
     );
     return response.data; // Return the actual data from the response
@@ -62,4 +64,26 @@ export const getAllVideos = async () => {
     console.error("Error fetching videos:", error);
     throw error; // Re-throw the error for higher-level handling
   }
+};
+
+export const getVideoById = async () => {
+  try {
+    console.log("hit endpoitn");
+    const response = await axios.get(
+      `https://localhost:32770/api/Video/GetvideoById?publicVideoId=jcyb8u8x1bwpaoybkitf`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    throw error;
+  }
+};
+
+export const getVideoCommnets = async (videoId) => {
+  const respone =
+    await axios.get(`https://localhost:32770/api/Comment/GetAllVideoComments?videoId=${videoId}
+  `);
+
+  return respone.data;
 };
