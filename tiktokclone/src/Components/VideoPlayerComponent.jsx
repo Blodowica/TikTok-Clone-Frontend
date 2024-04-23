@@ -1,9 +1,17 @@
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { HiMiniBookmark, HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
 import { RiHeartFill } from "react-icons/ri";
 import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
 
 function VideoPlayerComponent({ video }) {
+  const navigate = useNavigate();
+
+  const openCommentPage = () => {
+    // Navigate to the FullVideoPage route and pass the video as state
+    navigate(`/fullvideo`, { state: { video: video } });
+  };
+
   return (
     <Container fluid className="rounded border mb-3">
       <Row className="mb-2 mt-1">
@@ -70,6 +78,7 @@ function VideoPlayerComponent({ video }) {
                 <HiMiniChatBubbleOvalLeft
                   className="mb-1"
                   style={{ width: "100%", height: "100%" }}
+                  onClick={openCommentPage}
                 />
               </Col>
               <Col className="d-flex justify-content-center" xl={5}>

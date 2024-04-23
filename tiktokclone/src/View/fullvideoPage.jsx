@@ -15,10 +15,14 @@ import FullVideoPlayerComponent from "../Components/fullvideoPlayerComponent";
 import NavHeader from "../Components/NavHeaderComponent";
 import { IoSendSharp } from "react-icons/io5";
 import CommentesComponent from "../Components/CommentsComponent";
+import { useLocation } from "react-router-dom";
 
 // Import your API function
 function FullVideoPage() {
-  const [video, setVideo] = useState(null);
+  const location = useLocation();
+  const video = location.state?.video || null;
+
+  // /const [video, setVideo] = useState(null);
   const [comments, setComments] = useState([]);
   const [connectionId, setConnectionId] = useState(null); // Add this line
   const [connection, setConnection] = useState(null); // Add this line
@@ -29,10 +33,10 @@ function FullVideoPage() {
         let newConnection = null;
 
         // Load the video first
-        const videoData = await getVideoById();
-        setVideo(videoData);
+        // const videoData = await getVideoById();
+        // setVideo(videoData);
 
-        const commentData = await getVideoCommnets(videoData.id);
+        const commentData = await getVideoCommnets(video.id);
         setComments(commentData);
 
         // Create a new SignalR connection
@@ -62,7 +66,7 @@ function FullVideoPage() {
         console.log();
         // console.log(video);
         // Join the group
-        await newConnection.invoke("JoinGroup", String(videoData.id));
+        await newConnection.invoke("JoinGroup", String(video.id));
 
         const id = await newConnection.invoke("GetConnectionId");
         //console.log("Connection ID:", id);
