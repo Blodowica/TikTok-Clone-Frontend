@@ -34,7 +34,7 @@ export const handleUploadVideo = async (
     formData.append("authorId", authorId);
 
     var response = await axios.post(
-      `https://localhost:32768/api/Video/GetAllVideos
+      `https://localhost:32768/api/Video/upload
 
     `,
       formData,
