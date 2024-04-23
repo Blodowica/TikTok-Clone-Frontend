@@ -52,17 +52,35 @@ export const handleUploadVideo = async (
   }
 };
 
+// export const getAllVideos = async () => {
+//   try {
+//     const response = await axios.get(
+//       `https://localhost:32768/api/Video/GetAllVideos
+
+// `
+//     );
+//     return response.data; // Return the actual data from the response
+//   } catch (error) {
+//     console.error("Error fetching videos:", error);
+//     throw error; // Re-throw the error for higher-level handling
+//   }
+// };
 export const getAllVideos = async () => {
   try {
     const response = await axios.get(
-      `https://localhost:32768/api/Video/GetAllVideos
-
-`
+      `https://localhost:32768/api/Video/GetAllVideos`
     );
-    return response.data; // Return the actual data from the response
+    if (response.data.length === 0) {
+      // If response is empty, add dummy data
+      return dummyData;
+    } else {
+      // Return the actual data from the response if it's not empty
+      return response.data;
+    }
   } catch (error) {
     console.error("Error fetching videos:", error);
-    throw error; // Re-throw the error for higher-level handling
+    // If there's a network error, return dummy data
+    return dummyData;
   }
 };
 
@@ -118,3 +136,34 @@ export const postComment = async (
     throw error;
   }
 };
+
+const dummyData = [
+  {
+    id: 2,
+    authorId: 4,
+    caption: "Very cool kendrick video",
+    videoURL:
+      "https://res.cloudinary.com/dlivi0v24/video/upload/v1713876389/dxjcwquf6ci2eyasjm1c.mp4",
+    likes: 0,
+    cloudinaryVideoId: "dxjcwquf6ci2eyasjm1c",
+    audience: "2",
+    isCommentsDisabled: false,
+    createdAt: "2024-04-23T12:46:31.858746",
+    updatedAt: "2024-04-23T12:46:31.8587609",
+    comments: null,
+  },
+  {
+    id: 1,
+    authorId: 12,
+    caption: "Very funn gym video squating",
+    videoURL:
+      "https://res.cloudinary.com/dlivi0v24/video/upload/v1713382609/jcyb8u8x1bwpaoybkitf.mp4",
+    likes: 0,
+    cloudinaryVideoId: "jcyb8u8x1bwpaoybkitf",
+    audience: "Everyone",
+    isCommentsDisabled: false,
+    createdAt: "2024-04-17T19:36:49.7631",
+    updatedAt: "2024-04-17T19:36:49.7631157",
+    comments: null,
+  },
+];
