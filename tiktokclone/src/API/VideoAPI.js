@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //Video CRUD
-const BASE_URL = "https://localhost:32814/api/Video";
+const BASE_URL = "https://localhost:32768/api/Video";
 
 export const handleGetImageById = (publicVideoId, userID) => {
   let formData = new FormData();
@@ -34,7 +34,7 @@ export const handleUploadVideo = async (
     formData.append("authorId", authorId);
 
     var response = await axios.post(
-      `https://localhost:32770/api/Video/GetAllVideos
+      `https://localhost:32768/api/Video/GetAllVideos
 
     `,
       formData,
@@ -55,7 +55,7 @@ export const handleUploadVideo = async (
 export const getAllVideos = async () => {
   try {
     const response = await axios.get(
-      `https://localhost:32770/api/Video/GetAllVideos
+      `https://localhost:32768/api/Video/GetAllVideos
 
 `
     );
@@ -66,11 +66,11 @@ export const getAllVideos = async () => {
   }
 };
 
-export const getVideoById = async () => {
+export const getVideoById = async (videoId) => {
   try {
     console.log("hit endpoitn");
     const response = await axios.get(
-      `https://localhost:32770/api/Video/GetvideoById?publicVideoId=jcyb8u8x1bwpaoybkitf`
+      `https://localhost:32768/api/Video/GetvideoById?publicVideoId=jcyb8u8x1bwpaoybkitf`
     );
     console.log(response.data);
     return response.data;
@@ -82,8 +82,39 @@ export const getVideoById = async () => {
 
 export const getVideoCommnets = async (videoId) => {
   const respone =
-    await axios.get(`https://localhost:32770/api/Comment/GetAllVideoComments?videoId=${videoId}
+    await axios.get(`https://localhost:32768/api/Comment/GetAllVideoComments?videoId=${videoId}
   `);
 
   return respone.data;
+};
+
+export const postComment = async (
+  author,
+  content,
+  created,
+  videoId,
+  UserId
+) => {
+  const formData = new FormData();
+  formData.append("author", author);
+  formData.append("content", content);
+  formData.append("Created", created);
+  formData.append("videoId", videoId);
+  formData.append("userId", UserId);
+
+  try {
+    axios.post(
+      `https://localhost:32768/api/Comment/SendVideoComment`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch (error) {
+    alert("Something went wront posting the comment, please try again later!");
+    console.log(error);
+    throw error;
+  }
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Button,
   CloseButton,
   Col,
   Container,
@@ -10,6 +11,11 @@ import {
 import ReactPlayer from "react-player";
 import * as signalR from "@microsoft/signalr";
 import { getVideoById, getVideoCommnets } from "../API/VideoAPI";
+import FullVideoPlayerComponent from "../Components/fullvideoPlayerComponent";
+import NavHeader from "../Components/NavHeaderComponent";
+import { IoSendSharp } from "react-icons/io5";
+import CommentesComponent from "../Components/CommentsComponent";
+
 // Import your API function
 function FullVideoPage() {
   const [video, setVideo] = useState(null);
@@ -31,7 +37,7 @@ function FullVideoPage() {
 
         // Create a new SignalR connection
         newConnection = new signalR.HubConnectionBuilder()
-          .withUrl("https://localhost:32770/commentHub")
+          .withUrl("https://localhost:32768/commentHub")
           .build();
 
         // Add a listener for the 'ReceiveComment' method
@@ -81,96 +87,19 @@ function FullVideoPage() {
   return (
     <Container fluid>
       <Row>
-        <Col xl={8} className="p-0" style={{ height: "99.3vh" }}>
-          {video && (
-            <ReactPlayer
-              className="d-flex justify-content-center"
-              url={video.videoURL}
-              loop
-              controls
-              width="100%"
-              height="100%"
-              style={{
-                minHeight: "80vh",
-              }}
-            />
-          )}
+        <Col xl={12}>
+          <NavHeader />
+        </Col>
+      </Row>
+      <Col className="mt-1 mb-1 d-flex justify-content-start m-4 mb-0" xl={6}>
+        <CloseButton />
+      </Col>
+      <Row>
+        <Col xl={8} style={{ backgroundColor: "black" }}>
+          <FullVideoPlayerComponent video={video} />
         </Col>
         <Col xl={4} className="position-relative">
-          <CloseButton className="position-absolute top-0 end-0 m-3" />
-
-          {video && (
-            <>
-              <p>{video.caption}</p>
-            </>
-          )}
-          <p>Likes, Comments, Saves</p>
-          <hr />
-
-          <section
-            className="gradient-custom overflow-y-scroll"
-            style={{ maxHeight: "60vh" }}
-          >
-            <Container>
-              <Row className="d-flex justify-content-center">
-                <Col xl={12} className="col-md-12 col-lg-10 col-xl-8">
-                  <div className="card">
-                    <div className="card-body p-4">
-                      {comments.length > 0 ? (
-                        comments.map((comment, index) => (
-                          <div key={index}>
-                            <Row>
-                              <Col>
-                                <div className="d-flex flex-start">
-                                  <img
-                                    className="rounded-circle shadow-1-strong me-3"
-                                    src={comment.avatar}
-                                    alt="avatar"
-                                    width="65"
-                                    height="65"
-                                  />
-                                  <div className="flex-grow-1 flex-shrink-1">
-                                    <div>
-                                      <div className="d-flex justify-content-between align-items-center">
-                                        <p className="mb-1">
-                                          {comment.author}{" "}
-                                          <span className="small">
-                                            {comment.createdAt}
-                                          </span>
-                                        </p>
-                                        <a href="#!">
-                                          <i className="fas fa-reply fa-xs"></i>
-                                        </a>
-                                      </div>
-                                      <p className="small mb-0">
-                                        {comment.content}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </Col>
-                            </Row>
-                            {index !== comments.length - 1 && <hr />}
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-center">No comments yet.</p>
-                      )}
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-
-          <InputGroup className="mb-3 d-flex align-text-bottom">
-            <Form.Control
-              placeholder="Write a comment..."
-              aria-label="video Comment"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Text id="basic-addon2">@</InputGroup.Text>
-          </InputGroup>
+          <CommentesComponent video={video} comments={comments} />
         </Col>
       </Row>
     </Container>
