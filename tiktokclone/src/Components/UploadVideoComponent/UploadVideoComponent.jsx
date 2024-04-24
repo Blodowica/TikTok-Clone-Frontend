@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import { MdCloudUpload } from "react-icons/md";
 
 function UploadVideoComponent(props) {
   const fileInputRef = props.fileInputRef;
@@ -24,12 +25,10 @@ function UploadVideoComponent(props) {
   return (
     <>
       <Row className="mt-5 d-flex align-items-center justify-content-center">
-        <Col xl={2} xs={12}></Col>
-
         {/* Upload component starts here  */}
         <Col
           className="p-5 rounded"
-          xl={8}
+          xl={7}
           style={{
             backgroundColor: "#d3d3d3",
           }}
@@ -40,15 +39,20 @@ function UploadVideoComponent(props) {
               backgroundColor: "#d3d3d3",
             }}
           >
-            <Col className="p-2 mt-3 mb-5">
-              <>
-                <p className="text-center">" ..........insert Icon......"</p>
+            <Col
+              className="p-2 mt-3  rounded "
+              style={{ borderColor: "white", borderStyle: "dashed" }}
+            >
+              <Col className="">
+                <p className="text-center">
+                  <MdCloudUpload style={{ height: "15%", width: "15%" }} />
+                </p>
                 <h4 className="text-center">Select video to upload</h4>
                 <p className="text-center">or drag and drop a file</p>
                 <p className="mt-1 text-center">MP4 or WebM</p>
                 <p className="text-center">Up to 1 minute</p>
 
-                <Col className="d-flex justify-content-center mt-3">
+                <Col className="d-flex justify-content-center mt-2">
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -66,10 +70,10 @@ function UploadVideoComponent(props) {
                 <p style={{ fontSize: "70%" }} className="mt-2 text-center">
                   {selectedFileName}
                 </p>
-                <p className="text-center mt-5">
+                <p className="text-center mt-4">
                   Please don't post inappropriate content, and be respectful
                 </p>
-              </>
+              </Col>
             </Col>
           </Col>
           <Col className="d-flex justify-content-end">

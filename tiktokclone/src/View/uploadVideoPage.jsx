@@ -41,11 +41,6 @@ function UploadVideoPage() {
             lg={2}
             style={{
               backgroundColor: "#d4d4d4",
-
-              bottom: 0,
-              //backgroundColor: "#d4d4d4",
-              outlineStyle: "dotted",
-              outlineColor: "green",
             }}
           >
             <SideNavBarComponent />
@@ -53,7 +48,11 @@ function UploadVideoPage() {
 
           {/* upload video funct start here */}
           {showEditVideo ? (
-            <Col xl={10}>
+            <Col
+              xl={10}
+              className=""
+              style={{ height: "100%", minHeight: "93.5vh" }}
+            >
               <EditVideoComponent
                 fileInputRef={fileInputRef}
                 handleCancel={handleCancel}
@@ -61,7 +60,7 @@ function UploadVideoPage() {
               />
             </Col>
           ) : (
-            <Col xl={10}>
+            <Col xl={10} style={{ height: "100%", minHeight: "93.5vh" }}>
               <UploadVideoComponent
                 fileInputRef={fileInputRef}
                 handleNext={handleNext}

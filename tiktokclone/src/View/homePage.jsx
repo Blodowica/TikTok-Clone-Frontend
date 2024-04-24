@@ -7,7 +7,8 @@ import VideoPlayerComponent from "../Components/VideoPlayerComponent/VideoPlayer
 
 function HomePage() {
   const [videos, setVideos] = useState([]);
-console.log(`${process.env.REACT_APP_VIDEO_SERVICE_API}`);
+  const [connection, setConnection] = useState(null);
+
   const handleLoadVideos = async () => {
     const fetchedVideos = await getAllVideos();
     setVideos(fetchedVideos);
@@ -15,7 +16,14 @@ console.log(`${process.env.REACT_APP_VIDEO_SERVICE_API}`);
 
   useEffect(() => {
     handleLoadVideos();
-  }, []);
+    return () => {
+      if (connection) {
+        connection.stop().then(() => {
+          console.log("SignalR connection stopped");
+        });
+      }
+    };
+  }, [connection]);
 
   return (
     <Container fluid>
@@ -29,16 +37,30 @@ console.log(`${process.env.REACT_APP_VIDEO_SERVICE_API}`);
         {/* Side bar here */}
         <Col
           xl={2}
+          lg={3}
+          md={2}
+          sm={3}
           style={{
+            // position: "sticky",
+            // top: "5vh", // Adjust this value based on your header height
+            // // Maximum height for responsiveness
+            // overflowY: "auto",
+            // zIndex: 1000, // Ensure it's above other conten
             backgroundColor: "#d4d4d4",
           }}
         >
           <SideNavBarComponent />
         </Col>
 
-        <Col xl={10} style={{ height: "100%", minHeight: "93.9vh" }}>
+        <Col
+          xl={10}
+          lg={9}
+          md={8}
+          sm={9}
+          style={{ marginTop: "10vh", height: "100%", minHeight: "93.9vh" }}
+        >
           {videos.map((video, index) => (
-            <Row key={index} className="d-flex justify-content-center mt-4">
+            <Row key={index} className="d-flex justify-content-center ">
               <Col xl={5} style={{}}>
                 <VideoPlayerComponent video={video} />
               </Col>

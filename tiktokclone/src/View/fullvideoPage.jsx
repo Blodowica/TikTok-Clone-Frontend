@@ -53,7 +53,7 @@ function FullVideoPage() {
 
         // Create a new SignalR connection
         newConnection = new signalR.HubConnectionBuilder()
-          .withUrl("https://localhost:32768/commentHub")
+          .withUrl(`${process.env.REACT_APP_COMMENT_HUB}`)
           .build();
 
         // Add a listener for the 'ReceiveComment' method

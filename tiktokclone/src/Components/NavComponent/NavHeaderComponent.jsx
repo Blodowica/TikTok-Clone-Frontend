@@ -35,10 +35,13 @@ function NavHeader() {
       xs={12}
       style={{
         backgroundColor: "#f542c8",
-        // position: "fixed",
-        // top: 0,
-        // right: 0,
-        // left: 0,
+
+        right: 0,
+        left: 0,
+        position: "fixed",
+        top: "0", // Adjust this value based on your header height
+        // Ensure it's above other content
+        width: "100vw",
         zIndex: 1000,
       }}
     >
