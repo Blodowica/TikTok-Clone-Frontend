@@ -1,14 +1,24 @@
 import React from "react";
+import { Col, Row } from "react-bootstrap";
+import {
+  MdHomeFilled,
+  MdTimeline,
+  MdPeople,
+  MdPerson,
+  MdPersonAdd,
+} from "react-icons/md";
 
 function SideNavBarComponent() {
   return (
     <div
       style={{
         position: "fixed",
-        top: "5vh", // Adjust this value based on your header height
+        top: "7vh", // Adjust this value based on your header height
         zIndex: 1000, // Ensure it's above other content
         height: "100vh",
         overflowY: "auto",
+        maxWidth: "33vh", // Adjust the width of the sidebar
+        width: "100%",
       }}
     >
       <div
@@ -16,7 +26,6 @@ function SideNavBarComponent() {
         style={{
           position: "sticky",
           left: "0",
-          maxWidth: "280px", // Adjust the width of the sidebar
           height: "100%",
         }}
       >
@@ -25,9 +34,13 @@ function SideNavBarComponent() {
           id="menu"
           style={{ width: "100%" }}
         >
-          <li className="nav-item">
-            <a href="#" className="nav-link align-middle px-0">
-              <i className="fs-4 bi-house"></i>{" "}
+          <li>
+            <a
+              href="#submenu1"
+              data-bs-toggle="collapse"
+              className="nav-link px-0 align-middle"
+            >
+              <MdHomeFilled className="fs-4 me-2" />
               <span className="ms-1 d-none d-sm-inline">For You</span>
             </a>
           </li>
@@ -37,7 +50,7 @@ function SideNavBarComponent() {
               data-bs-toggle="collapse"
               className="nav-link px-0 align-middle"
             >
-              <i className="fs-4 bi-speedometer2"></i>{" "}
+              <MdPersonAdd className="fs-4 me-2" />
               <span className="ms-1 d-none d-sm-inline">Following</span>
             </a>
           </li>
@@ -47,7 +60,7 @@ function SideNavBarComponent() {
               data-bs-toggle="collapse"
               className="nav-link px-0 align-middle "
             >
-              <i className="fs-4 bi-bootstrap"></i>{" "}
+              <MdPeople className="fs-4 me-2" />
               <span className="ms-1 d-none d-sm-inline">Friends</span>
             </a>
           </li>
@@ -57,7 +70,7 @@ function SideNavBarComponent() {
               data-bs-toggle="collapse"
               className="nav-link px-0 align-middle"
             >
-              <i className="fs-4 bi-grid"></i>{" "}
+              <MdPerson className="fs-4 me-2" />
               <span className="ms-1 d-none d-sm-inline">Profile</span>
             </a>
           </li>

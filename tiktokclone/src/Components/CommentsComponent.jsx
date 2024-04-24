@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as signalR from "@microsoft/signalr";
 import {
   Button,
@@ -13,22 +13,31 @@ import { IoSendSharp } from "react-icons/io5";
 import { getVideoCommnets, postComment } from "../API/VideoAPI";
 
 function CommentesComponent({ video }) {
-  console.log("CommentesComponent rendered");
-
   const [comments, setComments] = useState([]);
   const [connectionId, setConnectionId] = useState(null); // Add this line
   const [connection, setConnection] = useState(null); // Add this line
+  const [commentContent, setCommentContent] = useState("");
+  const [inputValue, SetInputValue] = useState("");
+  const author = "Saltyhooman";
+  const userId = 12;
+  // Use a ref for the connection
+  const connectionRef = useRef(null);
 
   useEffect(() => {
+    // console.log("useEffect ran, video:", video);
+
     const fetchData = async () => {
       try {
         // If a connection already exists, stop it
-        if (connection) {
-          await connection.stop();
+        let newConnection = null;
+        console.log("test ran, connection:", connectionRef.current);
+
+        if (connectionRef.current) {
+          await connectionRef.current.stop();
           console.log("Existing SignalR connection stopped");
         }
 
-        let newConnection = null;
+        console.log("useEffect ran, connection:", connectionRef.current);
         if (video) {
           const commentData = await getVideoCommnets(video.id);
           setComments(commentData);
@@ -68,7 +77,7 @@ function CommentesComponent({ video }) {
         const id = await newConnection.invoke("GetConnectionId");
         //console.log("Connection ID:", id);
         setConnectionId(id);
-        setConnection(newConnection);
+        connectionRef.current = newConnection;
       } catch (error) {
         console.error("Error:", error);
       }
@@ -78,17 +87,12 @@ function CommentesComponent({ video }) {
 
     // Cleanup function
     return () => {
-      if (connection) {
-        connection.stop();
+      if (connectionRef.current) {
+        connectionRef.current.stop();
         console.log("SignalR connection stopped");
       }
     };
   }, [video]);
-
-  const [commentContent, setCommentContent] = useState("");
-  const [inputValue, SetInputValue] = useState("");
-  const author = "Saltyhooman";
-  const userId = 12;
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -117,7 +121,7 @@ function CommentesComponent({ video }) {
       }
     } catch (error) {
       alert(
-        "Something went wront posting the comment, please try again later!"
+        "Something went wrong posting the comment, please try again later!"
       );
       console.log(error);
     }

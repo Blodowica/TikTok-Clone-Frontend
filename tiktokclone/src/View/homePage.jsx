@@ -41,6 +41,7 @@ function HomePage() {
             // overflowY: "auto",
             // zIndex: 1000, // Ensure it's above other conten
             backgroundColor: "#d4d4d4",
+            overflowY: "auto",
           }}
         >
           <SideNavBarComponent />

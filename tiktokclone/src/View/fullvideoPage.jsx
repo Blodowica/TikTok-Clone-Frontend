@@ -10,8 +10,10 @@ function FullVideoPage() {
   console.log("FullVideoPage rendered");
 
   const location = useLocation();
-  const video = useMemo(() => location.state?.video || null);
-
+  const video = useMemo(
+    () => location.state?.video || null,
+    [location.state?.video]
+  );
   return (
     <Container fluid>
       <Row>
