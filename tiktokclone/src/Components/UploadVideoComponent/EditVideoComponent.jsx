@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import ReactPlayer from "react-player";
-import { handleUploadVideo } from "../API/VideoAPI";
+import { handleUploadVideo } from "../../API/VideoAPI";
 import { HttpStatusCode } from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";

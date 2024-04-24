@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   CloseButton,
   Col,
   Container,
-  Form,
-  InputGroup,
   Row,
 } from "react-bootstrap";
-import ReactPlayer from "react-player";
 import * as signalR from "@microsoft/signalr";
-import { getVideoById, getVideoCommnets } from "../API/VideoAPI";
-import FullVideoPlayerComponent from "../Components/fullvideoPlayerComponent";
-import NavHeader from "../Components/NavHeaderComponent";
-import { IoSendSharp } from "react-icons/io5";
-import CommentesComponent from "../Components/CommentsComponent";
+import {  getVideoCommnets } from "../API/VideoAPI";
 import { useLocation } from "react-router-dom";
+import FullVideoPlayerComponent  from "../Components/VideoPlayerComponent/VideoPlayerComponent";
+import CommentesComponent from "../Components/CommentsComponent"
+import NavHeader from "../Components/NavComponent/NavHeaderComponent";
 
 // Import your API function
 function FullVideoPage() {

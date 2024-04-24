@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import NavHeader from "../Components/NavHeaderComponent";
-import SideNavBarComponent from "../Components/SideNavBarComponent";
-import UploadVideoComponent from "../Components/UploadVideoComponent";
-import EditVideoComponent from "../Components/EditVideoComponent";
+import { Col, Container, Row } from "react-bootstrap";
+import NavHeader from "../Components/NavComponent/NavHeaderComponent";
+import SideNavBarComponent from "../Components/NavComponent/SideNavBarComponent";
+import EditVideoComponent from "../Components/UploadVideoComponent/EditVideoComponent";
+import UploadVideoComponent from "../Components/UploadVideoComponent/UploadVideoComponent";
+
 // import UploadVideoComponent from "../Components/UploadVideoComponent"; // Importing the UploadVideoComponent
 
 function UploadVideoPage() {

@@ -1,13 +1,13 @@
 import axios from "axios";
 
 //Video CRUD
-const BASE_URL = "https://localhost:32768/api/Video";
+const BASE_VIDEO_URL = `${process.env.REACT_APP_VIDEO_SERVICE_API}`;
 
 export const handleGetImageById = (publicVideoId, userID) => {
   let formData = new FormData();
   formData.append("publicVideo", publicVideoId);
   axios({
-    url: `${BASE_URL}/GetvideoById?publicVideoId=${publicVideoId}`,
+    url: `${BASE_VIDEO_URL}/GetvideoById?publicVideoId=${publicVideoId}`,
     method: "GET",
   })
     .then((res) => {
@@ -34,7 +34,7 @@ export const handleUploadVideo = async (
     formData.append("authorId", authorId);
 
     var response = await axios.post(
-      `https://localhost:32768/api/Video/upload
+      `${BASE_VIDEO_URL}/upload
 
     `,
       formData,
@@ -68,7 +68,7 @@ export const handleUploadVideo = async (
 export const getAllVideos = async () => {
   try {
     const response = await axios.get(
-      `https://localhost:32768/api/Video/GetAllVideos`
+      `${BASE_VIDEO_URL}/GetAllVideos`
     );
     if (response.data.length === 0) {
       // If response is empty, add dummy data
@@ -88,7 +88,7 @@ export const getVideoById = async (videoId) => {
   try {
     console.log("hit endpoitn");
     const response = await axios.get(
-      `https://localhost:32768/api/Video/GetvideoById?publicVideoId=jcyb8u8x1bwpaoybkitf`
+      `${BASE_VIDEO_URL}/GetvideoById?publicVideoId=jcyb8u8x1bwpaoybkitf`
     );
     console.log(response.data);
     return response.data;
@@ -97,6 +97,10 @@ export const getVideoById = async (videoId) => {
     throw error;
   }
 };
+export const LikeVideoById = async (videoId) =>{
+  const response = await axios.put(`${BASE_VIDEO_URL}/likeVideo?videoId=${videoId}`)
+  return response.status;
+}
 
 export const getVideoCommnets = async (videoId) => {
   const respone =

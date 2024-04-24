@@ -1,15 +1,12 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-import Nav from "react-bootstrap/Nav";
-import NavHeader from "../Components/NavHeaderComponent";
-import SideNavBarComponent from "../Components/SideNavBarComponent";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import ProfilePageComponent from "../Components/ProfilePageComponent";
-import UploadVideoComponent from "../Components/UploadVideoComponent";
-import VideoPlayerComponent from "../Components/VideoPlayerComponent";
-import EditVideoComponent from "../Components/EditVideoComponent";
+import SideNavBarComponent from "../Components/NavComponent/SideNavBarComponent";
+import NavHeader from "../Components/NavComponent/NavHeaderComponent";
+import UploadVideoComponent from "../Components/UploadVideoComponent/UploadVideoComponent";
+
 
 function ProfilePage() {
   return (

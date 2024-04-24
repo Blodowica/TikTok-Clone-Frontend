@@ -3,7 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
-import { useAuth0Functions } from "../API/UserAPI";
+import { useAuth0Functions } from "../../API/UserAPI";
 
 function NavHeader() {
   const { loginWithAuth0, logoutWithAuth0, user, isAuthenticated } =

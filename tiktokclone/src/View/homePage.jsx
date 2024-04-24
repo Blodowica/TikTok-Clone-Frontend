@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import NavHeader from "../Components/NavHeaderComponent";
-import VideoPlayerComponent from "../Components/VideoPlayerComponent";
-import SideNavBarComponent from "../Components/SideNavBarComponent";
 import { getAllVideos } from "../API/VideoAPI";
+import NavHeader from "../Components/NavComponent/NavHeaderComponent";
+import SideNavBarComponent from "../Components/NavComponent/SideNavBarComponent";
+import VideoPlayerComponent from "../Components/VideoPlayerComponent/VideoPlayerComponent";
 
 function HomePage() {
   const [videos, setVideos] = useState([]);
-
+console.log(`${process.env.REACT_APP_VIDEO_SERVICE_API}`);
   const handleLoadVideos = async () => {
     const fetchedVideos = await getAllVideos();
     setVideos(fetchedVideos);
