@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import * as signalR from "@microsoft/signalr";
 import {
   Button,
   CloseButton,
@@ -10,8 +10,81 @@ import {
   Row,
 } from "react-bootstrap";
 import { IoSendSharp } from "react-icons/io5";
-import { postComment } from "../API/VideoAPI";
-function CommentesComponent({ video, comments }) {
+import { getVideoCommnets, postComment } from "../API/VideoAPI";
+
+function CommentesComponent({ video }) {
+  console.log("CommentesComponent rendered");
+
+  const [comments, setComments] = useState([]);
+  const [connectionId, setConnectionId] = useState(null); // Add this line
+  const [connection, setConnection] = useState(null); // Add this line
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // If a connection already exists, stop it
+        if (connection) {
+          await connection.stop();
+          console.log("Existing SignalR connection stopped");
+        }
+
+        let newConnection = null;
+        if (video) {
+          const commentData = await getVideoCommnets(video.id);
+          setComments(commentData);
+        } else {
+          console.log("Video is undefined");
+          return;
+        }
+
+        // Create a new SignalR connection
+        newConnection = new signalR.HubConnectionBuilder()
+          .withUrl(`${process.env.REACT_APP_COMMENT_HUB}`)
+          .build();
+
+        // Add a listener for the 'ReceiveComment' method
+        newConnection.off("RecieveComment");
+        newConnection.on("RecieveComment", (comment) => {
+          console.log("Received new comment:", comment);
+          setComments((prevComments) => [...prevComments, comment]);
+        });
+
+        // Log connection state
+        newConnection.on("connected", () => {
+          //console.log("SignalR connection established");
+        });
+
+        newConnection.on("disconnected", () => {
+          console.log("SignalR connection disconnected");
+        });
+
+        // Start the connection
+        await newConnection.start();
+        //console.log("SignalR connection started successfully");
+
+        // Join the group
+        await newConnection.invoke("JoinGroup", String(video.id));
+
+        const id = await newConnection.invoke("GetConnectionId");
+        //console.log("Connection ID:", id);
+        setConnectionId(id);
+        setConnection(newConnection);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+
+    // Cleanup function
+    return () => {
+      if (connection) {
+        connection.stop();
+        console.log("SignalR connection stopped");
+      }
+    };
+  }, [video]);
+
   const [commentContent, setCommentContent] = useState("");
   const [inputValue, SetInputValue] = useState("");
   const author = "Saltyhooman";

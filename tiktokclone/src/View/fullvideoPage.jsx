@@ -1,116 +1,16 @@
-import React, { useState, useEffect } from "react";
-import {
-  Button,
-  CloseButton,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  Row,
-} from "react-bootstrap";
-import ReactPlayer from "react-player";
-import * as signalR from "@microsoft/signalr";
-import { getVideoById, getVideoCommnets } from "../API/VideoAPI";
-import FullVideoPlayerComponent from "../Components/fullvideoPlayerComponent";
+import React from "react";
+import { useMemo } from "react";
+import { CloseButton, Col, Container, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import NavHeader from "../Components/NavComponent/NavHeaderComponent";
 import CommentesComponent from "../Components/CommentsComponent";
+import FullVideoPlayerComponent from "../Components/fullvideoPlayerComponent";
 
-// Import your API function
 function FullVideoPage() {
+  console.log("FullVideoPage rendered");
+
   const location = useLocation();
-  const video = location.state?.video || null;
-
-  // /const [video, setVideo] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [connectionId, setConnectionId] = useState(null); // Add this line
-  const [connection, setConnection] = useState(null); // Add this line
-
-  // First useEffect for setting up the connection
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // If a connection already exists, stop it
-        if (connection) {
-          await connection.stop();
-          console.log("Existing SignalR connection stopped");
-        }
-
-        let newConnection = null;
-
-        // Load the video first
-        // const videoData = await getVideoById();
-        // setVideo(videoData);
-
-        // Ensure video is defined before accessing its id
-        if (video) {
-          const commentData = await getVideoCommnets(video.id);
-          setComments(commentData);
-        } else {
-          console.log("Video is undefined");
-          return;
-        }
-
-        // Create a new SignalR connection
-        newConnection = new signalR.HubConnectionBuilder()
-          .withUrl(`${process.env.REACT_APP_COMMENT_HUB}`)
-          .build();
-
-        // Add a listener for the 'ReceiveComment' method
-        newConnection.off("RecieveComment");
-        newConnection.on("RecieveComment", (comment) => {
-          console.log("Received new comment:", comment);
-          setComments((prevComments) => [...prevComments, comment]);
-        });
-
-        // Log connection state
-        newConnection.on("connected", () => {
-          //console.log("SignalR connection established");
-        });
-
-        newConnection.on("disconnected", () => {
-          console.log("SignalR connection disconnected");
-        });
-
-        // Start the connection
-        await newConnection.start();
-        //console.log("SignalR connection started successfully");
-
-        console.log();
-        // console.log(video);
-        // Join the group
-        await newConnection.invoke("JoinGroup", String(video.id));
-
-        const id = await newConnection.invoke("GetConnectionId");
-        //console.log("Connection ID:", id);
-        setConnectionId(id);
-        setConnection(newConnection);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchData();
-
-    // Cleanup function
-    return () => {
-      if (connection) {
-        connection.stop();
-        console.log("SignalR connection stopped");
-      }
-    };
-  }, []); // Empty dependency array
-
-  // Second useEffect for joining the group
-  useEffect(() => {
-    const joinGroup = async () => {
-      if (video && connection) {
-        await connection.invoke("JoinGroup", String(video.id));
-      }
-    };
-
-    joinGroup();
-  }, [video, connection]); // Dependency array with video and connection
+  const video = useMemo(() => location.state?.video || null);
 
   return (
     <Container fluid>
@@ -127,7 +27,7 @@ function FullVideoPage() {
           <FullVideoPlayerComponent video={video} />
         </Col>
         <Col xl={4} className="position-relative">
-          <CommentesComponent video={video} comments={comments} />
+          <CommentesComponent video={video} />
         </Col>
       </Row>
     </Container>

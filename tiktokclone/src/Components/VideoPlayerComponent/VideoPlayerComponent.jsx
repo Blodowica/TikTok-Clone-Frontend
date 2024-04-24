@@ -7,25 +7,25 @@ import { useNavigate } from "react-router-dom";
 import { LikeVideoById } from "../../API/VideoAPI";
 import { HttpStatusCode } from "axios";
 
-
 function VideoPlayerComponent({ video }) {
   const navigate = useNavigate();
 
-  const [newlikeCount, setNewLikeCount] = useState(video.likes)
+  const [newlikeCount, setNewLikeCount] = useState(video.likes);
 
   const openCommentPage = () => {
     // Navigate to the FullVideoPage route and pass the video as state
     navigate(`/fullvideo`, { state: { video: video } });
   };
 
-  const likeVideo = async () =>{
-   var response =  await LikeVideoById(video.id);
-    if(response === HttpStatusCode.Ok){
-      document.getElementById(`like button for video:${video.id}`).style.color = "Red";
+  const likeVideo = async () => {
+    var response = await LikeVideoById(video.id);
+    if (response === HttpStatusCode.Ok) {
+      document.getElementById(`like button for video:${video.id}`).style.color =
+        "Red";
       let templikes = newlikeCount + 1;
       setNewLikeCount(templikes);
     }
-  }
+  };
 
   return (
     <Container fluid className="rounded border mb-3">
@@ -74,7 +74,7 @@ function VideoPlayerComponent({ video }) {
             >
               <Col xl={5}>
                 <RiHeartFill
-                id={`like button for video:${video.id}`}
+                  id={`like button for video:${video.id}`}
                   className="mb-1"
                   style={{ width: "100%", height: "100%" }}
                   onClick={likeVideo}

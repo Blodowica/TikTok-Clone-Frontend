@@ -6,24 +6,18 @@ import SideNavBarComponent from "../Components/NavComponent/SideNavBarComponent"
 import VideoPlayerComponent from "../Components/VideoPlayerComponent/VideoPlayerComponent";
 
 function HomePage() {
+  console.log("HomePage rendered");
+
   const [videos, setVideos] = useState([]);
-  const [connection, setConnection] = useState(null);
 
   const handleLoadVideos = async () => {
     const fetchedVideos = await getAllVideos();
     setVideos(fetchedVideos);
   };
-
+  //load all the videos
   useEffect(() => {
     handleLoadVideos();
-    return () => {
-      if (connection) {
-        connection.stop().then(() => {
-          console.log("SignalR connection stopped");
-        });
-      }
-    };
-  }, [connection]);
+  }, []);
 
   return (
     <Container fluid>
