@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import {
+  Button,
   CloseButton,
   Col,
   Container,
+  Form,
+  InputGroup,
   Row,
 } from "react-bootstrap";
+import ReactPlayer from "react-player";
 import * as signalR from "@microsoft/signalr";
-import {  getVideoCommnets } from "../API/VideoAPI";
+import { getVideoById, getVideoCommnets } from "../API/VideoAPI";
+import FullVideoPlayerComponent from "../Components/fullvideoPlayerComponent";
 import { useLocation } from "react-router-dom";
-import FullVideoPlayerComponent  from "../Components/VideoPlayerComponent/VideoPlayerComponent";
-import CommentesComponent from "../Components/CommentsComponent"
 import NavHeader from "../Components/NavComponent/NavHeaderComponent";
+import CommentesComponent from "../Components/CommentsComponent";
 
 // Import your API function
 function FullVideoPage() {
@@ -22,17 +26,30 @@ function FullVideoPage() {
   const [connectionId, setConnectionId] = useState(null); // Add this line
   const [connection, setConnection] = useState(null); // Add this line
 
+  // First useEffect for setting up the connection
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // If a connection already exists, stop it
+        if (connection) {
+          await connection.stop();
+          console.log("Existing SignalR connection stopped");
+        }
+
         let newConnection = null;
 
         // Load the video first
         // const videoData = await getVideoById();
         // setVideo(videoData);
 
-        const commentData = await getVideoCommnets(video.id);
-        setComments(commentData);
+        // Ensure video is defined before accessing its id
+        if (video) {
+          const commentData = await getVideoCommnets(video.id);
+          setComments(commentData);
+        } else {
+          console.log("Video is undefined");
+          return;
+        }
 
         // Create a new SignalR connection
         newConnection = new signalR.HubConnectionBuilder()
@@ -40,6 +57,7 @@ function FullVideoPage() {
           .build();
 
         // Add a listener for the 'ReceiveComment' method
+        newConnection.off("RecieveComment");
         newConnection.on("RecieveComment", (comment) => {
           console.log("Received new comment:", comment);
           setComments((prevComments) => [...prevComments, comment]);
@@ -51,7 +69,7 @@ function FullVideoPage() {
         });
 
         newConnection.on("disconnected", () => {
-          //console.log("SignalR connection disconnected");
+          console.log("SignalR connection disconnected");
         });
 
         // Start the connection
@@ -81,7 +99,18 @@ function FullVideoPage() {
         console.log("SignalR connection stopped");
       }
     };
-  }, []);
+  }, []); // Empty dependency array
+
+  // Second useEffect for joining the group
+  useEffect(() => {
+    const joinGroup = async () => {
+      if (video && connection) {
+        await connection.invoke("JoinGroup", String(video.id));
+      }
+    };
+
+    joinGroup();
+  }, [video, connection]); // Dependency array with video and connection
 
   return (
     <Container fluid>

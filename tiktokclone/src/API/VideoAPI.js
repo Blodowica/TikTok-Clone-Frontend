@@ -67,9 +67,7 @@ export const handleUploadVideo = async (
 // };
 export const getAllVideos = async () => {
   try {
-    const response = await axios.get(
-      `${BASE_VIDEO_URL}/GetAllVideos`
-    );
+    const response = await axios.get(`${BASE_VIDEO_URL}/GetAllVideos`);
     if (response.data.length === 0) {
       // If response is empty, add dummy data
       return dummyData;
@@ -97,14 +95,16 @@ export const getVideoById = async (videoId) => {
     throw error;
   }
 };
-export const LikeVideoById = async (videoId) =>{
-  const response = await axios.put(`${BASE_VIDEO_URL}/likeVideo?videoId=${videoId}`)
+export const LikeVideoById = async (videoId) => {
+  const response = await axios.put(
+    `${BASE_VIDEO_URL}/likeVideo?videoId=${videoId}`
+  );
   return response.status;
-}
+};
 
 export const getVideoCommnets = async (videoId) => {
   const respone =
-    await axios.get(`https://localhost:32768/api/Comment/GetAllVideoComments?videoId=${videoId}
+    await axios.get(`https://localhost:32772/api/Comment/GetAllVideoComments?videoId=${videoId}
   `);
 
   return respone.data;
@@ -126,7 +126,7 @@ export const postComment = async (
 
   try {
     axios.post(
-      `https://localhost:32768/api/Comment/SendVideoComment`,
+      `https://localhost:32772/api/Comment/SendVideoComment`,
       formData,
       {
         headers: {
