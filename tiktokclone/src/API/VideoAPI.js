@@ -2,7 +2,7 @@ import axios from "axios";
 
 //Video CRUD
 const BASE_VIDEO_URL = `${process.env.REACT_APP_VIDEO_SERVICE_API}`;
-const BASE_COMMENT_URL = `${process.env.REACT_APP_COMMENT_API}`;
+const BASE_COMMENT_URL = `${process.env.REACT_APP_COMMENTS_SERVICE_API}`;
 
 export const handleGetImageById = (publicVideoId, userID) => {
   let formData = new FormData();
