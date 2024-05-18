@@ -5,6 +5,8 @@ import { useEffect } from "react";
 export const useAuth0Functions = () => {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
+  const BASE_USER_SERVICE = `${process.env.REACT_APP_USER_SERVICE_APP}`;
+
   useEffect(() => {
     if (isAuthenticated && user) {
       const userDataSent = localStorage.getItem("userDataSent");
@@ -35,7 +37,7 @@ export const useAuth0Functions = () => {
   };
   const sendUserDataToUserService = async (userData) => {
     try {
-      const response = await axios.post("https://localhost:32786/api/User", {
+      const response = await axios.post(`${BASE_USER_SERVICE}`, {
         name: userData.name,
         email: userData.email,
         authId: userData.sub,

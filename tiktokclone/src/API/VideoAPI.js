@@ -2,6 +2,7 @@ import axios from "axios";
 
 //Video CRUD
 const BASE_VIDEO_URL = `${process.env.REACT_APP_VIDEO_SERVICE_API}`;
+const BASE_COMMENT_URL = `${process.env.REACT_APP_COMMENT_API}`;
 
 export const handleGetImageById = (publicVideoId, userID) => {
   let formData = new FormData();
@@ -84,9 +85,8 @@ export const getAllVideos = async () => {
 
 export const getVideoById = async (videoId) => {
   try {
-    console.log("hit endpoitn");
     const response = await axios.get(
-      `${BASE_VIDEO_URL}/GetvideoById?publicVideoId=jcyb8u8x1bwpaoybkitf`
+      `${BASE_VIDEO_URL}/GetvideoById?publicVideoId=${videoId}`
     );
     console.log(response.data);
     return response.data;
@@ -104,7 +104,7 @@ export const LikeVideoById = async (videoId) => {
 
 export const getVideoCommnets = async (videoId) => {
   const respone =
-    await axios.get(`https://localhost:32772/api/Comment/GetAllVideoComments?videoId=${videoId}
+    await axios.get(`${BASE_COMMENT_URL}/GetAllVideoComments?videoId=${videoId}
   `);
 
   return respone.data;
@@ -125,15 +125,11 @@ export const postComment = async (
   formData.append("userId", UserId);
 
   try {
-    axios.post(
-      `https://localhost:32772/api/Comment/SendVideoComment`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    axios.post(`${BASE_COMMENT_URL}/SendVideoComment`, formData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     alert("Something went wront posting the comment, please try again later!");
     console.log(error);
