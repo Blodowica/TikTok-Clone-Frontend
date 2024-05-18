@@ -3,7 +3,8 @@ import axios from "axios";
 import { useEffect } from "react";
 
 export const useAuth0Functions = () => {
-  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, user, isAuthenticated, getIdTokenClaims } =
+    useAuth0();
 
   const BASE_USER_SERVICE = `${process.env.REACT_APP_USER_SERVICE_APP}`;
 
@@ -37,6 +38,12 @@ export const useAuth0Functions = () => {
   };
   const sendUserDataToUserService = async (userData) => {
     try {
+      //GET THE ID_TOKEN WHICH YOU NEED AD THE BEARER TOKEN
+      const idTokenClaims = await getIdTokenClaims();
+      const idToken = idTokenClaims.__raw;
+
+      console.log(idToken);
+
       const response = await axios.post(`${BASE_USER_SERVICE}`, {
         name: userData.name,
         email: userData.email,
