@@ -15,9 +15,7 @@ root.render(
     authorizationParams={{ redirect_uri: window.location.origin }}
   >
     <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </BrowserRouter>
   </Auth0Provider>
 );

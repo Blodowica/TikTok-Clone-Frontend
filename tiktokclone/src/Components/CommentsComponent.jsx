@@ -48,7 +48,9 @@ function CommentesComponent({ video }) {
 
         // Create a new SignalR connection
         newConnection = new signalR.HubConnectionBuilder()
-          .withUrl(`${process.env.REACT_APP_COMMENT_HUB}`)
+          .withUrl(`${process.env.REACT_APP_COMMENT_HUB}`, {
+            withCredentials: true,
+          })
           .build();
 
         // Add a listener for the 'ReceiveComment' method
