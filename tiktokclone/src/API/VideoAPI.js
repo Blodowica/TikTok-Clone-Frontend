@@ -23,16 +23,25 @@ export const handleUploadVideo = async (
   caption,
   isCommentsDisabled,
   audience,
-  authorId
+  authorId,
+  nickname
 ) => {
   try {
-    console.log(video, caption, isCommentsDisabled, audience, authorId);
+    console.log(
+      video,
+      caption,
+      isCommentsDisabled,
+      audience,
+      authorId,
+      nickname
+    );
     const formData = new FormData();
     formData.append("file", video);
     formData.append("caption", caption);
     formData.append("isCommentsDisabled", isCommentsDisabled);
     formData.append("audience", audience);
     formData.append("authorId", authorId);
+    formData.append("AuthorName", nickname);
 
     var response = await axios.post(
       `${BASE_VIDEO_URL}/upload
@@ -95,11 +104,24 @@ export const getVideoById = async (videoId) => {
     throw error;
   }
 };
-export const LikeVideoById = async (videoId) => {
-  const response = await axios.put(
-    `${BASE_VIDEO_URL}/likeVideo?videoId=${videoId}`
-  );
-  return response.status;
+export const LikeVideoById = async (videoId, AuthId) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("videoId", videoId);
+    formData.append("authID", AuthId);
+    console.log(formData);
+
+    const response = await axios.put(`${BASE_VIDEO_URL}/likeVideo`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getVideoCommnets = async (videoId) => {

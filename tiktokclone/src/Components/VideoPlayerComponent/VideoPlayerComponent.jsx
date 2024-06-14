@@ -6,9 +6,11 @@ import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { LikeVideoById } from "../../API/VideoAPI";
 import { HttpStatusCode } from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function VideoPlayerComponent({ video }) {
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   const [newlikeCount, setNewLikeCount] = useState(video.likes);
 
@@ -18,20 +20,27 @@ function VideoPlayerComponent({ video }) {
   };
 
   const likeVideo = async () => {
-    var response = await LikeVideoById(video.id);
-    if (response === HttpStatusCode.Ok) {
+    var response = await LikeVideoById(video.id, user.sub);
+    console.log("test");
+    console.log(response);
+
+    if (response.data.status === "liked") {
       document.getElementById(`like button for video:${video.id}`).style.color =
         "Red";
-      let templikes = newlikeCount + 1;
-      setNewLikeCount(templikes);
+    } else if (response.data.status === "disliked") {
+      document.getElementById(`like button for video:${video.id}`).style.color =
+        "";
     }
+
+    setNewLikeCount(response.data.newLikeCount);
   };
+  console.log(video);
 
   return (
     <Container fluid className="rounded border mb-3">
       <Row className="mb-2 mt-1">
         <Col xs={8} md={3} xl={4} sm={4}>
-          <h5>testingusername</h5>
+          <h5>{video.authorName}</h5>
         </Col>
         <Col
           xs={4}

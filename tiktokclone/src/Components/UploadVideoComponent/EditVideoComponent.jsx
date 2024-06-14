@@ -41,7 +41,8 @@ function EditVideoComponent(props) {
       caption,
       isCommentDisabled,
       audience,
-      userId
+      userId,
+      user.nickname
     );
     if (response.status === HttpStatusCode.Ok) {
       setShowModal(true);
